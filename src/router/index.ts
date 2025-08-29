@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from '@ionic/vue-router';
 import { RouteRecordRaw } from 'vue-router';
 import TabsPage from '../views/TabsPage.vue'
+import TabsAlpha from '@/views/Tabs/TabsAlpha/TabsAlpha.vue';
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -28,7 +29,38 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import('@/views/Tab3Page.vue')
       }
     ]
-  }
+  },
+  {
+    path:'/tabsAlpha/',
+    component: TabsAlpha,
+    children:[
+      {
+        path: '',
+        redirect: '/tabsAlpha/historyTab'
+      },
+      {
+        path: 'historyTab',
+        name: 'historyTab',
+        component: () => import('@/views/Tabs/TabsAlpha/HistoryTab.vue')
+      },
+      {
+        path: 'commonCases',
+        name: 'commonCases',
+        component: () => import('@/views/Tabs/TabsAlpha/CommonCases.vue')
+      },
+      {
+        path: 'helpTab',
+        name: 'helpTab',
+        component: () => import('@/views/Tabs/TabsAlpha/HelpTab.vue')
+      },
+      {
+        path: 'contactTab',
+        name: 'contactTab',
+        component: () => import('@/views/Tabs/TabsAlpha/ContactTab.vue')
+      },
+    ]
+  },
+
 ]
 
 const router = createRouter({

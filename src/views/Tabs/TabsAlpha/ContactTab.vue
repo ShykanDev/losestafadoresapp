@@ -46,7 +46,7 @@
                 <div class="flex items-start p-4 bg-white rounded-xl shadow-sm dark:bg-gray-800">
                   <div class="flex-shrink-0">
                     <div class="flex justify-center items-center w-12 h-12 bg-indigo-600 rounded-full">
-                        <v-icon name="bi-map-marker-fill" size="24" color="white" />
+                        <v-icon name="ri-building-2-fill" size="24" color="white" />
                     </div>
                   </div>
                   <div class="ml-4">
@@ -121,7 +121,7 @@
                   <button
                     @click.prevent="sendEmail"
                     type="submit"
-                    class="px-4 py-3 w-full font-semibold text-white bg-indigo-600 rounded-lg transition-colors duration-300 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800"
+                    class="!px-6 !py-3 w-full font-semibold text-white bg-indigo-600 rounded-3xl transition-colors duration-300 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800"
                   >
                     <i class="mr-2 fas fa-paper-plane"></i>
                     Enviar Mensaje

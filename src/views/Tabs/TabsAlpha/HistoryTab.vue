@@ -265,7 +265,7 @@
               </div>
               <ion-card-header>
                 <div class="flex items-center mb-4">
-                  <ion-icon :icon="logoInstagram" class="mr-3 text-3xl text-blue-400"></ion-icon>
+                  <ion-icon :icon="logoInstagram" class="mr-3 text-3xl text-rose-400"></ion-icon>
                   <ion-card-title class="text-xl font-bold text-gray-900 dark:text-white">Estafas en Redes
                     Sociales</ion-card-title>
                 </div>

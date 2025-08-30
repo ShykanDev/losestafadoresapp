@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from '@ionic/vue-router';
 import { RouteRecordRaw } from 'vue-router';
 import TabsPage from '../views/TabsPage.vue'
 import TabsAlpha from '@/views/Tabs/TabsAlpha/TabsAlpha.vue';
+import TabsBeta from '@/views/Tabs/TabsBeta/TabsBeta.vue';
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -60,7 +61,28 @@ const routes: Array<RouteRecordRaw> = [
       },
     ]
   },
-
+  {
+    path:'/tabsBeta/',
+    redirect: '/tabsBeta/scamTypesTab',
+    component:TabsBeta,
+    children:[
+      {
+        path:'/tabsBeta/scamTypesTab',
+        name:'scamTypesTab',
+        component: () => import('@/views/Tabs/TabsBeta/ScamTypesTab.vue')
+      },
+      {
+        path:'/tabsBeta/waysToAvoidTab',
+        name:'waysToAvoidTab',
+        component: () => import('@/views/Tabs/TabsBeta/WaysToAvoidTab.vue')
+      },
+      {
+        path:'/tabsBeta/securityMeasuresTab',
+        name:'securityMeasuresTab',
+        component: () => import('@/views/Tabs/TabsBeta/SecurityMeasuresTab.vue')
+      }
+    ]
+  }
 ]
 
 const router = createRouter({

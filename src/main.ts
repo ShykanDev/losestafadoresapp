@@ -59,9 +59,9 @@ const firebaseConfig = {
 };
 
 import { OhVueIcon, addIcons } from "oh-vue-icons";
-import { FaFlag, RiZhihuFill,MdLockreset,MdArrowbackOutlined,FaUserTie,FaUserPlus, PrUserPlus, RiUserVoiceLine,FaUserCircle, IoEnterOutline, MdLoginRound,HiSolidUserAdd, GiScrollUnfurled, MdSecurityTwotone,MdSupportagentRound,BiTelephoneInboundFill,MdEmail,  MdInfo,MdAlternateemail, RiBuilding2Fill,MdRealestateagentOutlined,IoCaretBackOutline,RiFileList3Line,RiListCheck2,GiPalm,FaUserSecret} from "oh-vue-icons/icons";
+import { FaFlag, RiZhihuFill,MdLockreset,MdArrowbackOutlined,FaUserTie,FaUserPlus, PrUserPlus, RiUserVoiceLine,FaUserCircle, IoEnterOutline, MdLoginRound,HiSolidUserAdd, GiScrollUnfurled, MdSecurityTwotone,MdSupportagentRound,BiTelephoneInboundFill,MdEmail,  MdInfo,MdAlternateemail, RiBuilding2Fill,MdRealestateagentOutlined,IoCaretBackOutline,RiFileList3Line,RiListCheck2,GiPalm,FaUserSecret, LaNewspaper,BiCursorText,BiTextParagraph, IoSearchSharp, RiDeleteBack2Line,GiChatBubble,MdReply, RiRefreshLine } from "oh-vue-icons/icons";
 
-addIcons(FaFlag, RiZhihuFill,MdLockreset,MdArrowbackOutlined,FaUserTie,FaUserPlus, PrUserPlus, RiUserVoiceLine,FaUserCircle, IoEnterOutline, MdLoginRound,HiSolidUserAdd, GiScrollUnfurled, MdSecurityTwotone,MdSupportagentRound,BiTelephoneInboundFill,MdEmail,MdInfo,MdAlternateemail, RiBuilding2Fill,MdRealestateagentOutlined,IoCaretBackOutline,RiFileList3Line,RiListCheck2,GiPalm,FaUserSecret);
+addIcons(FaFlag, RiZhihuFill,MdLockreset,MdArrowbackOutlined,FaUserTie,FaUserPlus, PrUserPlus, RiUserVoiceLine,FaUserCircle, IoEnterOutline, MdLoginRound,HiSolidUserAdd, GiScrollUnfurled, MdSecurityTwotone,MdSupportagentRound,BiTelephoneInboundFill,MdEmail,MdInfo,MdAlternateemail, RiBuilding2Fill,MdRealestateagentOutlined,IoCaretBackOutline,RiFileList3Line,RiListCheck2,GiPalm,FaUserSecret,LaNewspaper,BiCursorText,BiTextParagraph, IoSearchSharp,RiDeleteBack2Line,GiChatBubble,MdReply,RiRefreshLine);
 
 
 // Initialize Firebase

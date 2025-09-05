@@ -80,6 +80,11 @@ const routes: Array<RouteRecordRaw> = [
         path:'/tabsBeta/securityMeasuresTab',
         name:'securityMeasuresTab',
         component: () => import('@/views/Tabs/TabsBeta/SecurityMeasuresTab.vue')
+      },
+      {
+        path:'/tabsBeta/commentsTab',
+        name:'commentsTab',
+        component: () => import('@/views/Tabs/TabsBeta/CommentsTab.vue')
       }
     ]
   }

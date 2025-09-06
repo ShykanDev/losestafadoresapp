@@ -1,7 +1,8 @@
 <template>
   <ion-page>
       <ion-content :fullscreen="true" class="animate-fade-up animate-duration-[.19s]">
-        <article v-if="isPage" class="flex absolute top-3 left-3 gap-2 items-end px-2 py-1 bg-white animate__slideInUp animate__animated !animate-duration-[.9s] dark:bg-gray-900 rounded-4xl dark:shadow-sm"><v-icon name="io-caret-back-outline" scale="1.2"/><p class="font-poppins">volver</p></article>
+        <ion-router-link @click="goToLocation('/tabsAlpha')" v-if="isPage" class="flex z-40 absolute cursor-pointer top-3 left-3 gap-2 items-end px-2 py-1 bg-white animate__slideInRight animate__animated !animate-duration-[.9s] dark:bg-gray-900 rounded-4xl dark:shadow-sm"><v-icon name="io-caret-back-outline" scale="1.2"/><p class="font-poppins">volver</p></ion-router-link>
+
         <section class="container px-4 py-8 mx-auto animate-fade-up animate-duration-[.09s]">
     <h2 class="mb-4 text-3xl font-bold text-center text-indigo-800 dark:text-indigo-300">
         Cómo Evitar Estafas
@@ -447,7 +448,7 @@
 </template>
 
 <script lang="ts" setup>
-import { IonPage, IonContent, onIonViewWillEnter, onIonViewWillLeave } from '@ionic/vue';
+import { IonPage, IonContent, onIonViewWillEnter, onIonViewWillLeave, useIonRouter } from '@ionic/vue';
 import { ref } from 'vue';
 
 const isPage = ref(false)
@@ -459,6 +460,11 @@ onIonViewWillEnter(() => {
 onIonViewWillLeave(() => {
     isPage.value = false
 })
+
+const router = useIonRouter();
+const goToLocation = (locationParam:string) => {
+    router.navigate(locationParam, 'back')
+}
 </script>
 
 <style scoped></style>

@@ -2,6 +2,8 @@
   <ion-page>
     <ion-content :fullscreen="true" class="animate-fade-up animate-duration-[.19s]">
       <section class="relative px-0 py-3 bg-gradient-to-br to-gray-900 dark:to-indigo-950 dark:from-black in-h-dvh animate-fade">
+        <ion-router-link @click="goToLocation('/tabsAlpha')" v-if="isPage" class="flex z-40 absolute cursor-pointer top-3 left-3 gap-2 items-end px-2 py-1 bg-white animate__slideInRight animate__animated !animate-duration-[.9s] dark:bg-gray-900 rounded-4xl dark:shadow-sm"><v-icon name="io-caret-back-outline" scale="1.2"/><p class="font-poppins">volver</p></ion-router-link>
+
         <article class="bg-gradient-to-br ion-padding dark:to-indigo-950 dark:from-black">
           <div class="p-2 mb-2 bg-gray-100 rounded-2xl shadow-md dark:bg-gray-900">
             <IntroComponent/>
@@ -14,7 +16,7 @@
           class="p-6 mt-4 mx-auto w-[96%] bg-gradient-to-br from-white to-gray-50 shadow-xl rounded-3xl border border-gray-100 dark:bg-gray-900 dark:border-gray-700 dark:shadow-indigo-900 dark:from-gray-900 dark:to-gray-800">
           <!-- Título con efecto de degradado -->
           <h3
-            class="mb-2 text-2xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-indigo-700 to-purple-600 font-redHat dark:from-indigo-500 dark:to-purple-600">
+            class="mb-2 text-2xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-indigo-700 to-purple-600 font-redHat dark:from-indigo-200 dark:to-purple-400">
             Reportar estafa (<span v-show="comments.length > 0" class="text-indigo-600">{{ comments.length
             }}</span><v-icon v-show="comments.length === 0" name="ri-loader-5-line" scale="1.2"
               class="text-indigo-600 animate-spin" />)
@@ -194,7 +196,7 @@
             <!-- Iteración con v-for -->
             <div @click="setFilter(service)" v-for="service in uniqueServices" :key="service" :class="[
               filter === service
-                ? 'bg-indigo-100 border-indigo-600 text-indigo-600 font-sans italic dark:bg-black dark:border-indigo-400 dark:text-white'
+                ? 'bg-indigo-100 border-indigo-600 text-indigo-600 font-sans italic dark:bg-black dark:border-indigo-400 dark:text-indigo-900'
                 : 'bg-gray-50 border-indigo-100 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-50',
               'px-4 py-2 group cursor-pointer transition-all duration-200 ease-in-out rounded-lg border hover:bg-indigo-50 hover:shadow-sm hover:scale-[1.02] dark:hover:bg-gray-700'
             ]">
@@ -305,7 +307,7 @@
 
 <script lang="ts" setup>
 import "/node_modules/flag-icons/css/flag-icons.min.css";
-import { IonContent, IonPage } from "@ionic/vue";
+import { IonContent, IonPage, useIonRouter } from "@ionic/vue";
 import { computed, onMounted, reactive, ref } from "vue";
 import "notyf/notyf.min.css";
 import { Notyf } from "notyf";
@@ -320,6 +322,7 @@ import ReportComment from "@/components/TabsBeta/ReportComment.vue";
 import CommentCard from "@/components/TabsBeta/CommentCard.vue";
 import NewsComponent from "@/components/TabsBeta/CommentsTab/NewsComponent.vue";
 import IntroComponent from "@/components/TabsBeta/CommentsTab/IntroComponent.vue";
+import { MdSignalwifibad } from "oh-vue-icons/icons";
 
 
 
@@ -657,8 +660,32 @@ const fastAnswers = [
   { id: 5, text: "¡Cuidado con esta empresa!" }
 ];
 
+const setFastAnswer = (msgId:number) => {
+  switch (msgId) {
+    case 1:
 
+      break;
 
+    case 2:
+
+      break;
+    case 3:
+
+      break;
+    case 4:
+
+      break;
+
+      case 5:
+    
+    break;
+  }
+}
+
+const routerIon = useIonRouter();
+const goToLocation = (locationParam:string) => {
+    routerIon.navigate(locationParam, 'back')
+}
 </script>
 
 <style scoped>

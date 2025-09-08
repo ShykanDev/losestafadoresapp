@@ -8,7 +8,7 @@
             <!-- Encabezado -->
             <div class="mb-10 text-center">
               <div class="mb-6">
-                <i class="text-4xl text-indigo-600 fas fa-user-lock"></i>
+                <i class="text-4xl text-indigo-600 fas fa-user-lock dark:text-indigo-200"></i>
               </div>
               <h2 class="text-3xl font-bold text-indigo-800 font-poppins dark:text-white">Iniciar Sesión</h2>
               <h2 class="text-4xl text-indigo-600 font-montserrat-alternates dark:text-indigo-100"><span
@@ -149,7 +149,11 @@ const signIn = async () => {
         sysValues().setUserUid(credentials.user.uid);
         sysValues().setUserName(credentials.user.displayName);
         notyf.success('Bienvenido nuevamente ' + credentials.user.displayName);
+        console.log("Before set user logged (line 152 for Tab1Page login)")
+        console.log(sysValues().getUserLogged)
+        console.log("After set user logged (line 154 for Tab1Page login)")
         sysValues().setUserLogged(true);
+        console.log(sysValues().getUserLogged)
         sysValues().setUserColor(credentials.user.photoURL);
         console.log(sysValues().getUserColor);
         router.push('/tabsAlpha/historyTab');

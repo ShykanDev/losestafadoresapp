@@ -3,7 +3,17 @@ import { RouteRecordRaw } from 'vue-router';
 import TabsPage from '../views/TabsPage.vue'
 import TabsAlpha from '@/views/Tabs/TabsAlpha/TabsAlpha.vue';
 import TabsBeta from '@/views/Tabs/TabsBeta/TabsBeta.vue';
-
+import { getAuth, TotpMultiFactorGenerator } from 'firebase/auth';
+import { Notyf } from 'notyf';
+const notyf = new Notyf({
+  position:{
+    x:'right',
+    y:'top'
+  },
+  ripple:true,
+  dismissible:true,
+  duration:5000
+});
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
@@ -15,25 +25,29 @@ const routes: Array<RouteRecordRaw> = [
     children: [
       {
         path: '',
-        redirect: '/tabs/tab1'
+        redirect: '/tabs/tab1',//Login
+        name:'login',
       },
+
       {
         path: 'tab1',
-        component: () => import('@/views/Tab1Page.vue')
+        component: () => import('@/views/Tab1Page.vue'),
+        name:'login',
       },
       {
         path: 'tab2',
-        component: () => import('@/views/Tab2Page.vue')
+        component: () => import('@/views/Tab2Page.vue'),
       },
       {
         path: 'tab3',
-        component: () => import('@/views/Tab3Page.vue')
+        component: () => import('@/views/Tab3Page.vue'),
       }
     ]
   },
   {
     path:'/tabsAlpha/',
     component: TabsAlpha,
+    meta:{requiresAuth:true},
     children:[
       {
         path: '',
@@ -65,6 +79,7 @@ const routes: Array<RouteRecordRaw> = [
     path:'/tabsBeta/',
     redirect: '/tabsBeta/scamTypesTab',
     component:TabsBeta,
+    meta:{requiresAuth:true},
     children:[
       {
         path:'/tabsBeta/scamTypesTab',
@@ -88,11 +103,23 @@ const routes: Array<RouteRecordRaw> = [
       }
     ]
   }
+
 ]
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes
+})
+
+
+router.beforeEach((to, from, next)=> {
+  const auth = getAuth();
+  if(to.matched.some(r => r.meta.requiresAuth && !auth.currentUser && !to.meta.skipAuth)){
+    next({name:'login'})
+    notyf.error('Inicio de sesión requerido');
+  } else {
+    next()
+  }
 })
 
 export default router

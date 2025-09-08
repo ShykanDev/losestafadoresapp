@@ -162,19 +162,19 @@
     <!-- Respuestas -->
     <article class="bg-white dark:bg-gray-800 dark:border-slate-700 dark:shadow-xs shadow-xs">
 
-      <TransitionGroup name="list" tag="div" class="answers-container">
+      <TransitionGroup name="list" tag="div" class="py-1 answers-container">
         <div
           v-for="answer in visibleAnswers.sort((a, b) => Number(a.answerCreationDate) - Number(b.answerCreationDate))"
           :key="answer.id || answer.answerCreationDate?.toMillis() || Math.random()"
-          class="list-item pl-4 mt-4 ml-3 border-l-2 border-indigo-100 dark:bg-gray-800 dark:border-slate-700 dark:shadow-xs shadow-xs">
+          class="list-item pl-4 mt-4 ml-3 border-l-2 border-indigo-100 dark:bg-gary-800 dark:border-slate-700 dark:shadow-xs shadow-xs">
           <div class="flex gap-3 items-center mb-3">
-            <article class="flex justify-center items-center w-8 h-8  !rounded-full text-slate-100"
+            <article class="flex justify-center p-0.5 items-center !w-8 !h-8  !rounded-full text-slate-100"
               :style="{ backgroundColor: answer.answerUserColor }">
               <small class="!text-sm font-semibold">{{ answer.answerName.charAt(0).toUpperCase() }}</small>
             </article>
             <div>
               <small class="text-sm font-medium text-gray-800 font-redHat dark:text-gray-200">{{ answer.answerName }}</small>
-              <small class="ml-2 text-xs text-gray-500 font-redHat dark:text-gray-400">{{ convertedDate(answer.answerCreationDate) }}</small>
+              <small class="px-2 ml-2 text-xs text-gray-500 rounded-lg font-redHat dark:bg-slate-900 dark:text-gray-200">{{ convertedDate(answer.answerCreationDate) }}</small>
             </div>
           </div>
           <p class="pl-9 text-sm text-gray-700 font-redHat dark:text-gray-200">{{ answer.answerComment }}</p>
@@ -182,8 +182,9 @@
       </TransitionGroup>
       <div v-if="!limitReached && answers.length > answersLimit" class="flex justify-start items-center p-3 my-1">
         <button @click="loadMoreMessages()"
-          class="px-4 py-2 text-sm font-medium text-white bg-indigo-500 rounded-lg font-redHat hover:bg-indigo-700">
+          class="!px-2 !py-1 flex gap-2 items-center text-sm font-medium !rounded-md dark:!shadow-indigo-200 !shadow-indigo-200 dark:!border-indigo-400 !border-indigo-400 dark:!border dark:text-indigo-100   text-white bg-indigo-500 dark:bg-black font-redHat hover:bg-indigo-700">
           Ver más respuestas
+          <v-icon name="md-expandmore-twotone" scale="1.2" />
         </button>
       </div>
     </article>

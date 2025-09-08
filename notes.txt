@@ -3,5 +3,5 @@ Set the is auth to true in the sysValues store when the user logs in [DONE ✔]
 Set the is auth to false in the sysValues store when the user logs out [X]
 
 //Login => router
-Fix the next issue: When user logs in, the app must push the view to the alpha tabs view [NOT DONE] (⚠️CRITICAL⚠️)
-Set the router to redirect to the login view when the user is not logged in including the pinia state [X]
+Fix the next issue: When user logs in, the app must push the view to the alpha tabs view [DONE ✔] 
+Set the router to redirect to the login view when the user is not logged (using firebase auth state)[DONE ✔]

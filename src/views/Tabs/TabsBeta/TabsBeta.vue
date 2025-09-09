@@ -53,6 +53,15 @@
                         class="font-poppins">Medidas de seguridad</ion-label>
                 </ion-tab-button>
 
+                <ion-tab-button tab="profileTab" href="/tabsBeta/profileTab">
+                    <v-icon name="ri-user-settings-fill" class="transition-all duration-300"
+                        :class="route.name === 'profileTab' ? 'dark:text-white scale-105 text-indigo-500' : 'text-indigo-300 scale-75'"
+                        scale="1.3" />
+                    <ion-label
+                        :class="route.name === 'profileTab' ? 'dark:text-white text-indigo-500 font-poppins' : 'text-indigo-300 font-poppins'"
+                        class="font-poppins">Perfil</ion-label>
+                </ion-tab-button>
+
             </ion-tab-bar>
         </ion-tabs>
     </ion-page>

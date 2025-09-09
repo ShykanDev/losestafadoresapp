@@ -100,6 +100,11 @@ const routes: Array<RouteRecordRaw> = [
         path:'/tabsBeta/commentsTab',
         name:'commentsTab',
         component: () => import('@/views/Tabs/TabsBeta/CommentsTab.vue')
+      },
+      {
+        path:'/tabsBeta/profileTab',
+        name:'profileTab', 
+        component: () => import('@/views/Tabs/TabsBeta/ProfileTab.vue')
       }
     ]
   }

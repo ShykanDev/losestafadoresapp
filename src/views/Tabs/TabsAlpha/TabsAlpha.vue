@@ -3,13 +3,13 @@
       <ion-tabs>
         <ion-router-outlet :name="'tabsAlpha'"></ion-router-outlet>
         
-        <h3 class="absolute top-0 right-4 bg-white dark:bg-gray-900 rounded-l-4xl dark:shadow-indigo-900 dark:shadow-sm">
+        <h6  class="absolute top-0 right-4 bg-white dark:bg-gray-900 rounded-l-4xl dark:shadow-indigo-900 dark:shadow-sm">
           <a href="https://losestafadores.com" target="_blank" class="px-2 py-1 text-xl font-bold text-indigo-500 rounded-l-4xl animate-fade font-poppins dark:text-indigo-100">
             <span class="text-indigo-400 dark:text-indigo-300 animate__animated animate__bounceInDown">los</span>
             <span class="text-indigo-500 dark:text-indigo-500 animate__animated animate__bounceInDown animate-delay-[500ms]">estafadores</span>
             <span class="text-indigo-400 dark:text-indigo-300 animate__animated animate__bounceInDown animate-delay-[700ms]">.com</span>
           </a>
-        </h3>
+        </h6>
         <ion-tab-bar slot="bottom">
           <ion-tab-button tab="historyTab" href="/tabsAlpha/historyTab">
             <v-icon name="gi-scroll-unfurled" class="transition-all duration-300" :class="route.name === 'historyTab' ? 'dark:text-white scale-105 text-indigo-500' : 'text-indigo-300 scale-75'" scale="1.3" />

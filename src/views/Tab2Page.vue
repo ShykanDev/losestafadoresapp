@@ -1,6 +1,6 @@
 <template>
   <ion-page>
-      <ion-content class="">
+      <ion-content class="safe-area-content">
         <section class="relative z-10 px-2 py-5 min-h-screen bgApply">
         <img src="https://images.pexels.com/photos/221179/pexels-photo-221179.jpeg" alt="" class="hidden object-cover absolute top-0 left-0 w-full h-full bgApply -z-10">
         <div class="flex justify-center items-center p-1 min-h-screen bg-gray-50 rounded-2xl border border-indigo-400 dark:bg-indigo-800 dark:text-white sm:p-8">
@@ -10,7 +10,7 @@
       <div class="inline-flex justify-center items-center mb-4 w-16 h-16 text-4xl text-indigo-500 bg-white bg-opacity-20 rounded-full font-pacifico dark:text-indigo-800">
         {{ userName.charAt(0).toUpperCase()  }}
       </div>
-      <h2 class="text-2xl font-bold font-pacifico">Cree su cuenta</h2>
+      <h2 class="text-2xl font-bold font-pacifico">Cree su cuenta v1</h2>
       <v-icon name="fa-user-tie" class="absolute top-0 right-0 text-white animate-delay-[500ms] -rotate-12 animate__animated animate__fadeInTopRight dark:text-indigo-200" scale="6" />
       <v-icon name="fa-user-plus" class="absolute top-0 left-0 text-white rotate-12 animate__animated animate__fadeInTopLeft dark:text-indigo-200" scale="5" />
       <!-- icono de usuario en el centro (se usara un calc para centrarlo) -->
@@ -45,7 +45,7 @@
           <label class="block mb-1 text-sm font-medium dark:!text-white">
             <i class="mr-2 text-indigo-500 fas fa-user-circle"></i>Color de avatar
           </label>
-          <div class="flex flex-wrap gap-2 mt-2">
+          <div class="flex flex-wrap gap-2 mt-2" :class="errColorNotSelected ? 'animate-jump-in' : ''">
             <button
               v-for="item in avatarColors"
               :key="item.id"
@@ -176,7 +176,18 @@ const verifyValues = (): boolean => (!userEmail.value || !password.value || !con
 const auth = getAuth();
 
 const router = useRouter();
+
+const errColorNotSelected = ref(false);
 const createUser = async (): Promise<void> => {
+  if(selectedColor.value === ''){
+    errColorNotSelected.value = true;
+    notyf.error('Por favor seleccione un color de avatar')
+    return;
+  }
+  if(password.value !== confirmPassword.value){
+    notyf.error('Las contraseñas no coinciden')
+    return;
+  }
   if (!verifyValues()) {
     notyf.error('Por favor verifique los valores ingresados, verifique que no haya faltantes')
     return;
@@ -211,6 +222,7 @@ const createUser = async (): Promise<void> => {
     }, 5000)
   } catch (error) {
     console.log(error);
+    notyf.error('Error al crear la cuenta, por favor inténtelo de nuevo más tarde')
   }
 }
 
@@ -245,5 +257,12 @@ background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox=
 }
 label{
   color: rgb(41, 41, 232);
+} 
+ion-content {
+  --padding-top: env(safe-area-inset-top);
+  --padding-bottom: env(safe-area-inset-bottom);
+  --padding-start: env(safe-area-inset-left);
+  --padding-end: env(safe-area-inset-right);
 }
+
 </style>

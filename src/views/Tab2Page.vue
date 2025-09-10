@@ -10,7 +10,7 @@
       <div class="inline-flex justify-center items-center mb-4 w-16 h-16 text-4xl text-indigo-500 bg-white bg-opacity-20 rounded-full font-pacifico dark:text-indigo-800">
         {{ userName.charAt(0).toUpperCase()  }}
       </div>
-      <h2 class="text-2xl font-bold font-pacifico">Cree su cuenta v1</h2>
+      <h2 class="text-2xl font-bold font-pacifico">Cree su cuenta </h2>
       <v-icon name="fa-user-tie" class="absolute top-0 right-0 text-white animate-delay-[500ms] -rotate-12 animate__animated animate__fadeInTopRight dark:text-indigo-200" scale="6" />
       <v-icon name="fa-user-plus" class="absolute top-0 left-0 text-white rotate-12 animate__animated animate__fadeInTopLeft dark:text-indigo-200" scale="5" />
       <!-- icono de usuario en el centro (se usara un calc para centrarlo) -->
@@ -142,7 +142,7 @@
 </template>
 
 <script setup lang="ts">
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/vue';
+import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, onIonViewWillEnter } from '@ionic/vue';
 import ExploreContainer from '@/components/ExploreContainer.vue';
 import 'animate.css';
 
@@ -154,7 +154,7 @@ import { Notyf } from 'notyf';
 import "notyf/notyf.min.css";
 import { sysValues } from '@/stores/sysVals';
 import { useRouter } from 'vue-router';
-
+import  {useEdgeToEdge} from '@/composables/useEdgeToEdge';
 const notyf = new Notyf({
   duration: 3000,
   position: {
@@ -241,6 +241,8 @@ const selectColor = (color: string) => {
   selectedColor.value = selectedColor.value === color ? '' : color;
 };
 
+//const { startStatusBar } = useEdgeToEdge();
+//onIonViewWillEnter(async() => startStatusBar())
 
 </script>
 

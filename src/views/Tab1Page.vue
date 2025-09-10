@@ -120,11 +120,8 @@ import { Notyf } from 'notyf';
 import 'notyf/notyf.min.css'; // for React, Vue and Svelte
 import { sysValues } from '@/stores/sysVals';
 import { useRouter } from 'vue-router';
-import { Capacitor } from '@capacitor/core';
-import { StatusBar, StatusBarAnimation, StatusBarInfo, StatusBarStyle, Style } from '@capacitor/status-bar';
 import 'animate.css';
-import { EdgeToEdge } from '@capawesome/capacitor-android-edge-to-edge-support';
-
+import { useEdgeToEdge } from '@/composables/useEdgeToEdge';
 
 // router
 const router = useRouter();
@@ -201,59 +198,11 @@ const resetPassword = async () => {
   }
 }
 
-const visible = ref(false);
-const overlays = ref(false);
+// edge to edge (Safe Area)
+//const { startStatusBar} = useEdgeToEdge();
+//onIonViewWillEnter(async() => startStatusBar())
 
-onIonViewWillEnter(() => {
-  // Display content under transparent status bar
-  StatusBar.setOverlaysWebView({ overlay: false });
-})
-// Display content under transparent status bar
-StatusBar.setOverlaysWebView({ overlay: false });
-const info = ref();
-const getInfo = async () => {
-  info.value = await StatusBar.getInfo();
-}
-const toggleVisible = () => {
-  if (visible.value) {
-    StatusBar.hide({
-      animation: StatusBarAnimation.Fade
-    })
-  }
-}
-const setStatusBarStyleLight = async () => {
-  await StatusBar.setStyle({ style: Style.Light });
-  getInfo();
-};
 
-const setStatusBarStyleDark = async () => {
-  await StatusBar.setStyle({ style: Style.Dark });
-  getInfo();
-};
-
-const hideStatusBar = async () => {
-  await StatusBar.hide();
-  getInfo();
-};
-
-const showStatusBar = async () => {
-  await StatusBar.show();
-  getInfo();
-};
-
-const overlay = ref(false);
-const showOverlay = async () => {
-  await StatusBar.setOverlaysWebView({
-    overlay: true
-  })
-  await EdgeToEdge.enable();
-};
-const hideOverlay = async () => {
-  await StatusBar.setOverlaysWebView({
-    overlay: false
-  })
-  await EdgeToEdge.disable();
-};
 </script>
 
 <style scoped>

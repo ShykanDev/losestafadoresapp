@@ -18,6 +18,10 @@
 </template>
 
 <script setup lang="ts">
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/vue';
+import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, onIonViewWillEnter } from '@ionic/vue';
 import ExploreContainer from '@/components/ExploreContainer.vue';
+import { useEdgeToEdge } from '@/composables/useEdgeToEdge';
+//const { startStatusBar } = useEdgeToEdge();
+//onIonViewWillEnter(async() => startStatusBar())
+
 </script>

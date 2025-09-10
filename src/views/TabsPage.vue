@@ -12,6 +12,8 @@
           <v-icon name="hi-solid-user-add" class="text-indigo-500" scale="1.3" />
           <ion-label class="text-indigo-200 font-poppins">Registrarse</ion-label>
         </ion-tab-button>
+        
+
 
       </ion-tab-bar>
     </ion-tabs>
@@ -19,8 +21,12 @@
 </template>
 
 <script setup lang="ts">
-import { IonTabBar, IonTabButton, IonTabs, IonLabel, IonIcon, IonPage, IonRouterOutlet } from '@ionic/vue';
-import { ellipse, square, triangle } from 'ionicons/icons';
+import { IonTabBar, IonTabButton, IonTabs, IonLabel, IonIcon, IonPage, IonRouterOutlet, onIonViewWillEnter } from '@ionic/vue';
+import { useEdgeToEdge } from '@/composables/useEdgeToEdge';
+
+const { startStatusBar } = useEdgeToEdge();
+onIonViewWillEnter(async() => startStatusBar())
+
 </script>
 
 <style scoped>

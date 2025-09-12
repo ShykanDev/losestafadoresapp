@@ -5,9 +5,9 @@
     <!-- Header del comentario -->
     <div class="flex gap-2 items-center mb-1">
       <v-icon name="fa-user" scale="1" class="mt-0.5 text-indigo-600 dark:text-indigo-300" />
-      <article class="flex justify-center items-center w-8 h-8 rounded-full text-slate-100"
+      <article class="flex justify-center items-center !w-8 !h-8 rounded-full text-slate-100"
         :style="{ backgroundColor: userColor }">
-        <h5 class="text-sm font-semibold">{{ userName.charAt(0).toUpperCase() }}</h5>
+        <p class="font-semibold text-md">{{ userName.charAt(0).toUpperCase() }}</p>
       </article>
       <div>
         <h3 class="!text-md font-medium text-gray-800 dark:text-gray-300">{{ userName }}</h3>
@@ -97,7 +97,7 @@
     <div class="space-y-3">
       <article class="flex justify-between items-center">
         <h3 class="text-sm italic font-semibold text-indigo-800 dark:text-indigo-200 font-redHat">"{{ subject }}"</h3>
-        <button @click="reportComment"><v-icon name="io-flag" scale="1" class="mt-0.5 text-rose-600" /></button>
+        <button @click="reportComment"><v-icon name="bi-flag-fill" scale="1" class="mt-0.5 text-rose-600" /></button>
       </article>
       <p class="text-sm leading-relaxed text-gray-700 dark:text-gray-400">{{ comment }}</p>
     </div>
@@ -106,7 +106,8 @@
     <div class="mt-4 space-y-3">
       <!-- Botón de responder y respuestas rápidas -->
       <div v-show="!answering" class="flex flex-wrap gap-2 items-center">
-        <div @click="toggleAnswering(true)" class="text-indigo-200 cursor-pointer ion-activatable ripple-parent rounded-rectangle">
+        <div @click="toggleAnswering(true)"
+          class="text-indigo-200 cursor-pointer ion-activatable ripple-parent rounded-rectangle">
           Responder
           <v-icon name="md-reply" scale="1" />
           <ion-ripple-effect>
@@ -116,13 +117,9 @@
         <!-- Respuestas rápidas -->
         <div class="flex flex-wrap gap-2 w-full">
           <article v-for="(e, index) in fastAnswers" :key="e.id">
-            <FastAnswer
-              class="animate-fade-left animate-duration-[.8s]"
-              :style="{ animationDelay: (100 * index) + 'ms' }"
-              :text="e.text"
-              :id="e.id"
-              @click="addDefaultAnswer(e.id)"
-            />
+            <FastAnswer class="animate-fade-left animate-duration-[.8s]"
+              :style="{ animationDelay: (100 * index) + 'ms' }" :text="e.text" :id="e.id"
+              @click="addDefaultAnswer(e.id)" />
 
           </article>
         </div>
@@ -137,13 +134,8 @@
             Cancelar
           </button>
         </div>
-        <ion-textarea
-    :label="`Responder a ${userName}`"
-    label-placement="floating"
-    fill="outline"
-    placeholder="Escriba su respuesta aquí..."
-    v-model="answerValue"
-  ></ion-textarea>
+        <ion-textarea :label="`Responder a ${userName}`" label-placement="floating" fill="outline"
+          placeholder="Escriba su respuesta aquí..." v-model="answerValue"></ion-textarea>
         <textarea ref="$answerTextArea" v-model="answerValue" placeholder="Escriba su respuesta aquí..."
           class="hidden p-3 w-full text-sm bg-gray-50 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 dark:bg-gray-800 dark:border-slate-700 dark:shadow-xs shadow-xs focus:ring-indigo-300"
           rows="3"></textarea>
@@ -173,8 +165,11 @@
               <small class="!text-sm font-semibold">{{ answer.answerName.charAt(0).toUpperCase() }}</small>
             </article>
             <div>
-              <small class="text-sm font-medium text-gray-800 font-redHat dark:text-gray-200">{{ answer.answerName }}</small>
-              <small class="px-2 ml-2 text-xs text-gray-500 rounded-lg font-redHat dark:bg-slate-900 dark:text-gray-200">{{ convertedDate(answer.answerCreationDate) }}</small>
+              <small class="text-sm font-medium text-gray-800 font-redHat dark:text-gray-200">{{ answer.answerName
+                }}</small>
+              <small
+                class="px-2 ml-2 text-xs text-gray-500 rounded-lg font-redHat dark:bg-slate-900 dark:text-gray-200">{{
+                  convertedDate(answer.answerCreationDate) }}</small>
             </div>
           </div>
           <p class="pl-9 text-sm text-gray-700 font-redHat dark:text-gray-200">{{ answer.answerComment }}</p>
@@ -199,7 +194,7 @@ import "notyf/notyf.min.css";
 import { Notyf } from "notyf";
 import { reports } from '@/stores/reports';
 import FastAnswer from './FastAnswer.vue';
-import { IonRippleEffect } from '@ionic/vue';
+import { IonRippleEffect, useIonRouter } from '@ionic/vue';
 import { IonTextarea } from '@ionic/vue';
 const notyf = new Notyf({
   duration: 3000,
@@ -317,14 +312,27 @@ const toggleAnswering = (value: boolean) => {
 
 const verifyAnswer = () => (answerValue.value.trim() !== '') ? true : false;
 const verifyLogged = () => sysValues().getUserLogged;
+const verifyLoggedFirebase = () => {
+  if (sysValues().getUserLogged) {
+    return true;
+  } else {
+    return false
+  }
+}
 
+const ionRouter = useIonRouter();
 const addAnswer = async () => {
+
   if (!verifyAnswer()) {
     notyf.error('Por favor ingrese un comentario');
     return;
   }
-  if (!verifyLogged()) {
+  if (!verifyLoggedFirebase()) {
     notyf.error('Por favor inicie sesión para poder responder');
+    toggleAnswering(false);
+    setTimeout(() => {
+      ionRouter.push({name: 'login'});
+    }, 1000);
     return;
   }
   try {

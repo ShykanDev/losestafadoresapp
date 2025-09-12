@@ -2,8 +2,7 @@
   <ion-page>
     <ion-content :fullscreen="true" class="animate-fade-up animate-duration-[.19s]">
       <section class="relative px-0 py-3 bg-gradient-to-br to-gray-900 dark:to-indigo-950 dark:from-black in-h-dvh animate-fade">
-        <ion-router-link @click="goToLocation('/tabsAlpha')" v-if="isPage" class="flex z-40 absolute cursor-pointer top-3 left-3 gap-2 items-end px-2 py-1 bg-white animate__slideInRight animate__animated !animate-duration-[.9s] dark:bg-gray-900 rounded-4xl dark:shadow-sm"><v-icon name="io-caret-back-outline" scale="1.2"/><p class="font-poppins">volver</p></ion-router-link>
-
+        <ion-router-link @click="routerIon.back()"  class="flex z-40 absolute cursor-pointer top-3 left-3 gap-2 items-end px-2 py-0.5 bg-white animate__slideInRight animate__animated !animate-duration-[.9s] dark:bg-gray-900/30 rounded-4xl dark:shadow-sm"><v-icon name="io-caret-back-outline" scale="1.2"/><p class="font-poppins">volver</p></ion-router-link>
         <article class="bg-gradient-to-br ion-padding dark:to-indigo-950 dark:from-black">
           <div class="p-2 mb-2 bg-gray-100 rounded-2xl shadow-md dark:bg-gray-900">
             <IntroComponent/>
@@ -31,10 +30,7 @@
             <section
               class="flex overflow-y-auto relative dark:bg-gray-900 dark:border-gray-700  ion-padding flex-col gap-3 p-2 w-full rounded-3xl border-2 max-h-[75vh]">
               <!-- Botón sticky -->
-              <a href="#comment" type="button"
-                class="sticky top-0 right-1 z-10 self-end px-3 py-1.5 text-sm text-white bg-indigo-500 rounded-lg shadow-sm transition-colors dark:text-white hover:bg-indigo-600">
-                <v-icon name="bi-skip-end-fill" scale="1" class="mr-1" /> Omitir y solo comentar
-              </a>
+   
               <!-- Nombre de la empresa/servicio -->
               <div class="space-y-1.5">
                 <div class="flex gap-2 items-center">
@@ -293,6 +289,10 @@
               :amountLost="comment.amountLost" :contactMethod="comment.contactMethod" :fullComment="comment.fullComment"
               :userColor="comment.userColor" :userUid="comment.userUid" @getAnswers="getCommentsEmmit"
               class="bg-white rounded-xl border border-gray-100 shadow-sm transition-shadow hover:shadow-md" />
+            <div class="flex justify-center">
+              <button @click="addLimit" v-if="frontEndComments.length < comments.length" class="flex gap-2 items-center !px-4 !py-2 text-sm font-medium text-white dark:border dark:border-indigo-600 dark:bg-slate-700/40 backdrop-blur-sm dark:text-indigo-300 bg-indigo-500 !rounded-lg font-redHat hover:bg-indigo-600">Ver más comentarios<v-icon name="io-caret-down" scale="1" /></button>
+            </div>
+
           </div>
         </div>
 
@@ -307,7 +307,7 @@
 
 <script lang="ts" setup>
 import "/node_modules/flag-icons/css/flag-icons.min.css";
-import { IonContent, IonPage, useIonRouter } from "@ionic/vue";
+import { IonContent, IonPage, IonRouterOutlet, useIonRouter } from "@ionic/vue";
 import { computed, onMounted, reactive, ref } from "vue";
 import "notyf/notyf.min.css";
 import { Notyf } from "notyf";
@@ -317,12 +317,11 @@ import { sysValues } from "@/stores/sysVals";
 import { addDoc, collection, getDocs, getFirestore, query, Timestamp } from "firebase/firestore";
 
 import LoaderCircleYellow from "@/animations/LoaderCircleYellow.vue";
-import router from "@/router";
 import ReportComment from "@/components/TabsBeta/ReportComment.vue";
 import CommentCard from "@/components/TabsBeta/CommentCard.vue";
 import NewsComponent from "@/components/TabsBeta/CommentsTab/NewsComponent.vue";
 import IntroComponent from "@/components/TabsBeta/CommentsTab/IntroComponent.vue";
-import { MdSignalwifibad } from "oh-vue-icons/icons";
+import { getAuth } from "firebase/auth";
 
 
 
@@ -475,15 +474,30 @@ const verifyFullComment = () => {
   }
 }
 
+const auth = getAuth();
+const isUserAuth = () => {
+  if (auth.currentUser) {
+    return true;
+  } else {
+    return false
+  }
+}
 const addComment = async () => {
-  if (!verifyFields()) {
-    notyf.error('Por favor, completa todos los campos')
+  if (!isUserAuth()) {
+    notyf.success('Por favor, inicie sesión para agregar un comentario')
+    setTimeout(() => {
+      routerIon.navigate({name: 'login'}, 'root')
+    }, 3000)
     return
+  }
+  if (!verifyFields()) {
+      notyf.error('Por favor, completa todos los campos')
+      return
   }
   if (!verifyLogged()) {
     notyf.success('Por favor, inicie sesión para agregar un comentario')
     setTimeout(() => {
-      router.push({ name: 'login' })
+      routerIon.navigate({ name: 'login' }, 'root')
     }, 3000)
     return
   }
@@ -519,15 +533,22 @@ const addComment = async () => {
 }
 
 const filterBy = ref('')
+const limit = ref(1)
 
-
+const addLimit = () => {
+  if (limit.value >= comments.value.length) {
+    limit.value = comments.value.length
+    return
+  }
+  limit.value += 3
+}
 const frontEndComments = computed(() => {
   if (filterBy.value === 'asc') {
-    return comments.value.sort((a, b) => a.creationDate - b.creationDate)
+    return comments.value.sort((a, b) => a.creationDate - b.creationDate).slice(0, limit.value)
   } else if (filterBy.value === 'desc') {
-    return comments.value.sort((a, b) => b.creationDate - a.creationDate)
+    return comments.value.sort((a, b) => b.creationDate - a.creationDate).slice(0, limit.value)
   } else {
-    return comments.value
+    return comments.value.slice(0, limit.value)
   }
 })
 

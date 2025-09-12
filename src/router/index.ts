@@ -3,7 +3,7 @@ import { RouteRecordRaw } from 'vue-router';
 import TabsPage from '../views/TabsPage.vue'
 import TabsAlpha from '@/views/Tabs/TabsAlpha/TabsAlpha.vue';
 import TabsBeta from '@/views/Tabs/TabsBeta/TabsBeta.vue';
-import { getAuth, TotpMultiFactorGenerator } from 'firebase/auth';
+import { getAuth } from 'firebase/auth';
 import { Notyf } from 'notyf';
 const notyf = new Notyf({
   position:{
@@ -17,7 +17,7 @@ const notyf = new Notyf({
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    redirect: '/tabs/tab1'
+    redirect: '/tabsAlpha/'
   },
   {
     path: '/tabs/',
@@ -52,7 +52,6 @@ const routes: Array<RouteRecordRaw> = [
   {
     path:'/tabsAlpha/',
     component: TabsAlpha,
-    meta:{requiresAuth:true},
     children:[
       {
         path: '',
@@ -84,7 +83,6 @@ const routes: Array<RouteRecordRaw> = [
     path:'/tabsBeta/',
     redirect: '/tabsBeta/scamTypesTab',
     component:TabsBeta,
-    meta:{requiresAuth:true},
     children:[
       {
         path:'/tabsBeta/scamTypesTab',
@@ -104,12 +102,13 @@ const routes: Array<RouteRecordRaw> = [
       {
         path:'/tabsBeta/commentsTab',
         name:'commentsTab',
-        component: () => import('@/views/Tabs/TabsBeta/CommentsTab.vue')
+        component: () => import('@/views/Tabs/TabsBeta/CommentsTab.vue'),
       },
       {
         path:'/tabsBeta/profileTab',
         name:'profileTab', 
-        component: () => import('@/views/Tabs/TabsBeta/ProfileTab.vue')
+        component: () => import('@/views/Tabs/TabsBeta/ProfileTab.vue'),
+        meta:{requiresAuth:true}
       }
     ]
   }
@@ -124,7 +123,7 @@ const router = createRouter({
 
 router.beforeEach((to, from, next)=> {
   const auth = getAuth();
-  if(to.matched.some(r => r.meta.requiresAuth && !auth.currentUser && !to.meta.skipAuth)){
+  if(to.meta.requiresAuth  && !auth.currentUser) {
     next({name:'login'})
     notyf.error('Inicio de sesión requerido');
   } else {

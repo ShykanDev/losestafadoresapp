@@ -1,9 +1,14 @@
 <template>
   <ion-page class="safe-area-wrapper">
-  
-
     <!--Testing-->
     <ion-content class="safe-area-wrapper">
+      <section class="absolute top-2 left-2 z-10">
+        <ion-button    :router-link="'/tabsBeta/commentsTab'" router-direction="back"  class="back !rounded-3xl text-white  !border dark:border-white animate-fade-left ">
+          <v-icon name="md-arrowback-outlined" class="dark:text-indigo-200" scale="1.2" />
+          Volver
+        </ion-button>
+
+      </section>
       <section class="px-2 py-2 min-h-screen bg-gradient-to-br from-indigo-50 to-indigo-100 bgApplyWhite bgApplyDark">
         <div
           class="overflow-hidden relative mx-auto max-w-7xl min-h-[90dvh] bg-white rounded-xl border border-indigo-400 shadow-xl dark:bg-gradient-to-r transition-colors duration-[1s] hover:dark:bg-gradient-to-r from-violet-950 dark:to-indigo-950">
@@ -243,6 +248,22 @@ ion-button.login {
 
   --padding-top: 10px;
   --padding-bottom: 10px;
+}
+
+ion-button.back {
+  --background: #160067;
+  --background-hover: #00fe7f;
+  --background-activated: #88f4be;
+  --background-focused: #88f4be;
+  --color: rgb(236, 236, 237);
+  --border-radius: 20px;
+  --border-color: #000;
+  --border-style: none;
+  --border-width: none;
+  --box-shadow: 0 2px 6px 0 rgb(0, 0, 0, 0.25);
+  --ripple-color: rgb(0, 255, 13);
+  --padding-top: 3px;
+  --padding-bottom: 3px;
 }
 
 .bgApplyWhite {
